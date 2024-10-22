@@ -11,7 +11,7 @@ import base64
 import datetime
 import email.utils
 import json
-
+import os
 import requests
 
 
@@ -173,7 +173,7 @@ class Client:
 
 
 def main():
-    code = ""
+    code = os.getenv('PASS')
     host = ""
     c = Client()
     key_exists = False
