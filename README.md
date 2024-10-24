@@ -1,6 +1,7 @@
 # ruo
 Approve Duo Push requests without a phone.
 
+
 # Requirements
 1. Python
 2. PyCryptoDome
