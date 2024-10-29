@@ -1,5 +1,5 @@
 # ruo
-Approve Duo Push requests without a phone.
+Approve Duo Push requests without a phone
 
 
 # Requirements
