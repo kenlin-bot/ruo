@@ -62,7 +62,7 @@ class Client:
             host += '=' * (4 - missing_padding)
         self.code = code
         self.host = base64.decodebytes(host.encode("ascii")).decode('ascii')
-        print(self.host)
+        # print(self.host)
         
 
     def import_response(self, response):
