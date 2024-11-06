@@ -166,7 +166,6 @@ class Client:
 
 def main():
     code = os.getenv('PASS')
-    key
     host = ""
     c = Client()
     key_exists = False
