@@ -62,6 +62,8 @@ class Client:
             host += '=' * (4 - missing_padding)
         self.code = code
         self.host = base64.decodebytes(host.encode("ascii")).decode('ascii')
+        print(self.host)
+        
 
     def import_response(self, response):
         if type(response) is str:
@@ -82,6 +84,7 @@ class Client:
             self.info["host"] = self.host
         with open("response.json", 'w') as f:
             json.dump(self.info, f)
+        print(self.info)
 
     def activate(self):
         if self.code:
@@ -154,17 +157,6 @@ class Client:
         signature = self.generate_signature("POST", path, time, data)
         r = requests.post(f"https://{self.host}{path}", data=data, headers={
                           "Authorization": signature, "x-duo-date": time, "host": self.host})
-    def device_info(self):
-        dt = datetime.datetime.utcnow()
-        time = email.utils.format_datetime(dt)
-        path = "/push/v2/device/info"
-        data = {"akey": self.akey, "fips_status": "1",
-                "hsm_status": "true", "pkpush": "rsa-sha512"}
-
-        signature = self.generate_signature("GET", path, time, data)
-        r = requests.get(f"https://{self.host}{path}", params=data, headers={
-                         "Authorization": signature, "x-duo-date": time, "host": self.host})
-        return r.json()
 
 # c = Client(response="response.json",keyfile="mykey.pem",code="")
 # print(c)
@@ -174,6 +166,7 @@ class Client:
 
 def main():
     code = os.getenv('PASS')
+    key
     host = ""
     c = Client()
     key_exists = False
@@ -182,23 +175,12 @@ def main():
         key_exists = True
     else:
         c.export_key("key.pem")
-
-    if pathlib.Path("response.json").is_file() and key_exists:
-        c.import_response("response.json")
-        if code:
-            c.read_code(code)
-        if not c.host and host:
-            c.host = host
-        if not c.host:
-            code = input("Input code:")
-            c.read_code(code)
-            c.export_response()
-    else:
-        if not code:
-            code = input("Input code:")
-        c.read_code(code)
-        c.activate()
-        c.export_response()
+        
+    if not code:
+        code = input("Input code:")
+    c.read_code(code)
+    c.activate()
+    c.export_response()
 
     while True:
         try:
